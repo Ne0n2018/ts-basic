@@ -1,0 +1,573 @@
+{
+  "info": {
+    "name": "Tours API Collection",
+    "description": "Коллекция запросов для тестирования Tours API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Tours",
+      "description": "Операции с турами",
+      "item": [
+        {
+          "name": "Получить все туры",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/tours",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["tours"]
+            }
+          }
+        },
+        {
+          "name": "Создать тур",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:4000/tours",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["tours"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Экскурсия по Минску\",\n    \"description\": \"Увлекательная экскурсия по историческому центру города\",\n    \"isActive\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Получить тур по ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/tours/:tourId",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["tours", ":tourId"],
+              "variable": [
+                {
+                  "key": "tourId",
+                  "value": "TOUR_ID_HERE"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Получить расписания для тура",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/tours/:tourId/schedules",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["tours", ":tourId", "schedules"],
+              "variable": [
+                {
+                  "key": "tourId",
+                  "value": "TOUR_ID_HERE"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Обновить тур",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:4000/tours/:tourId",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["tours", ":tourId"],
+              "variable": [
+                {
+                  "key": "tourId",
+                  "value": "TOUR_ID_HERE"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Обновленная экскурсия по Минску\",\n    \"description\": \"Новое описание экскурсии\",\n    \"isActive\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Удалить тур",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:4000/tours/:tourId",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["tours", ":tourId"],
+              "variable": [
+                {
+                  "key": "tourId",
+                  "value": "TOUR_ID_HERE"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Schedules",
+      "description": "Операции с расписаниями",
+      "item": [
+        {
+          "name": "Получить все расписания",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/schedules",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["schedules"]
+            }
+          }
+        },
+        {
+          "name": "Создать расписание",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:4000/schedules",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["schedules"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"tourId\": \"TOUR_ID_HERE\",\n    \"startDate\": \"2025-04-01T10:00:00Z\",\n    \"endDate\": \"2025-04-01T12:00:00Z\",\n    \"isActive\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Получить расписание по ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/schedules/:scheduleId",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["schedules", ":scheduleId"],
+              "variable": [
+                {
+                  "key": "scheduleId",
+                  "value": "SCHEDULE_ID_HERE"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Получить цены для расписания",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/schedules/:scheduleId/prices",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["schedules", ":scheduleId", "prices"],
+              "variable": [
+                {
+                  "key": "scheduleId",
+                  "value": "SCHEDULE_ID_HERE"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Обновить расписание",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:4000/schedules/:scheduleId",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["schedules", ":scheduleId"],
+              "variable": [
+                {
+                  "key": "scheduleId",
+                  "value": "SCHEDULE_ID_HERE"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"startDate\": \"2025-04-02T10:00:00Z\",\n    \"endDate\": \"2025-04-02T12:00:00Z\",\n    \"isActive\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Удалить расписание",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:4000/schedules/:scheduleId",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["schedules", ":scheduleId"],
+              "variable": [
+                {
+                  "key": "scheduleId",
+                  "value": "SCHEDULE_ID_HERE"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Prices",
+      "description": "Операции с ценами",
+      "item": [
+        {
+          "name": "Получить все цены",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/prices",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["prices"]
+            }
+          }
+        },
+        {
+          "name": "Создать цену",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:4000/prices",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["prices"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"scheduleId\": \"SCHEDULE_ID_HERE\",\n    \"priceValue\": 25.5,\n    \"priceCurrency\": \"BYN\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Получить цену по ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/prices/:priceId",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["prices", ":priceId"],
+              "variable": [
+                {
+                  "key": "priceId",
+                  "value": "PRICE_ID_HERE"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Обновить цену",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:4000/prices/:priceId",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["prices", ":priceId"],
+              "variable": [
+                {
+                  "key": "priceId",
+                  "value": "PRICE_ID_HERE"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"priceValue\": 30,\n    \"priceCurrency\": \"BYN\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Удалить цену",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:4000/prices/:priceId",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["prices", ":priceId"],
+              "variable": [
+                {
+                  "key": "priceId",
+                  "value": "PRICE_ID_HERE"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Тестовый сценарий",
+      "description": "Полный тестовый сценарий работы с API",
+      "item": [
+        {
+          "name": "1. Создать тур",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "pm.globals.set(\"tourId\", jsonData.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:4000/tours",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["tours"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Тестовый тур\",\n    \"description\": \"Описание тестового тура\",\n    \"isActive\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "2. Создать расписание для тура",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "pm.globals.set(\"scheduleId\", jsonData.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:4000/schedules",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["schedules"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"tourId\": \"{{tourId}}\",\n    \"startDate\": \"2025-04-01T10:00:00Z\",\n    \"endDate\": \"2025-04-01T12:00:00Z\",\n    \"isActive\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "3. Создать цену для расписания",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "pm.globals.set(\"priceId\", jsonData.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:4000/prices",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["prices"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"scheduleId\": \"{{scheduleId}}\",\n    \"priceValue\": 25.5,\n    \"priceCurrency\": \"BYN\"\n}"
+            }
+          }
+        },
+        {
+          "name": "4. Получить расписания для тура",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/tours/{{tourId}}/schedules",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["tours", "{{tourId}}", "schedules"]
+            }
+          }
+        },
+        {
+          "name": "5. Получить цены для расписания",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/schedules/{{scheduleId}}/prices",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["schedules", "{{scheduleId}}", "prices"]
+            }
+          }
+        },
+        {
+          "name": "6. Обновить тур",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:4000/tours/{{tourId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["tours", "{{tourId}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Обновленный тестовый тур\",\n    \"description\": \"Обновленное описание тестового тура\",\n    \"isActive\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "7. Удалить тур (каскадное удаление)",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:4000/tours/{{tourId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["tours", "{{tourId}}"]
+            }
+          }
+        },
+        {
+          "name": "8. Проверить, что расписания удалены",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/schedules",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["schedules"]
+            }
+          }
+        },
+        {
+          "name": "9. Проверить, что цены удалены",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/prices",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["prices"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
