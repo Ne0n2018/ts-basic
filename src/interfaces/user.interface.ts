@@ -18,6 +18,9 @@ export interface IUserDTO {
   email: string;
   name: string;
   password: string;
+  salt: string;
   posts: IPost[];
   comments: IComment[];
+  createdAt: Date;
+  updatedAt: Date;
 }

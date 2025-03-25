@@ -1,4 +1,5 @@
 import express, { Express, Request, Response } from 'express';
+import userRouter from './resources/user/user.router';
 
 const app: Express = express();
 
@@ -11,5 +12,7 @@ app.use('/', (req: Request, res: Response, next) => {
   }
   next();
 });
+
+app.use('/users', userRouter);
 
 export default app;
