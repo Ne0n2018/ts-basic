@@ -1,19 +1,19 @@
-import { ITourDTO } from '../interfaces/tour.interface';
-import { IScheduleDTO } from '../interfaces/schedule.interface';
-import { IPriceDTO } from '../interfaces/price.interface';
+import { ICommentDTO } from 'interfaces/comment.interface';
+import { IPostDTO } from 'interfaces/post.interface';
+import { IUserDTO } from 'interfaces/user.interface';
 
-export type TourRequestBody = ITourDTO;
-export type ScheduleRequestBody = IScheduleDTO;
-export type PriceRequestBody = IPriceDTO;
+export type UserRequestBody = IUserDTO;
+export type PostRequestBody = IPostDTO;
+export type CommentRequestBody = ICommentDTO;
 
-export interface TourRequestParams {
-  tourId: string;
+export interface UserRequestParams {
+  userId: string;
 }
 
-export interface ScheduleRequestParams {
-  scheduleId: string;
+export interface PostRequestParams {
+  postId: string;
 }
 
-export interface PriceRequestParams {
-  priceId: string;
+export interface CommentRequestParams {
+  commentId: string;
 }
