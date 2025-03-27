@@ -22,8 +22,8 @@ export class User implements IUser {
 
   comments: IComment[];
 
-  constructor({ id = uuidv4(), name, email, password, salt, posts, comments }: IUserDTO) {
-    this.id = id;
+  constructor({ name, email, password, salt, posts, comments }: IUserDTO) {
+    this.id = uuidv4();
     this.name = name;
     this.email = email;
     this.password = password;

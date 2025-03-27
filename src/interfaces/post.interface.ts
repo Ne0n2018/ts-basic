@@ -16,4 +16,6 @@ export interface IPostDTO {
   title: string;
   text: string;
   comments: IComment[];
+  createdAt: Date;
+  updatedAt: Date;
 }
