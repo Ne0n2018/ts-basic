@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { StatusCodes, getReasonPhrase } from 'http-status-codes';
 import fs from 'fs';
 import path from 'path';
@@ -10,12 +10,10 @@ const pipeline = util.promisify(stream.pipeline);
 export const errorHandling = async (
   error: Error,
   _req: Request,
-  res: Response,
-  _next: NextFunction
-) => {
+  res: Response
+): Promise<Response> => {
   const { name, message, stack } = error;
-  const statusCode: string =
-    name === 'Error' ? StatusCodes.NOT_FOUND : StatusCodes.INTERNAL_SERVER_ERROR;
+  const statusCode = name === 'Error' ? StatusCodes.NOT_FOUND : StatusCodes.INTERNAL_SERVER_ERROR;
   const messageReason = getReasonPhrase(statusCode);
   const logsFolder = path.join(__dirname, '../../logs');
 
@@ -35,8 +33,12 @@ export const errorHandling = async (
         flags: 'a',
       })
     );
-  } catch (error) {
-    process.stderr.write(error.message);
+  } catch (err) {
+    if (err instanceof Error) {
+      process.stderr.write(`${err.message}\n`);
+    } else {
+      process.stderr.write('An unknown error occurred.\n');
+    }
     process.exit(1);
   }
 

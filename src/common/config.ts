@@ -1,16 +1,18 @@
-import * as dotenv from 'dotenv';
+import dotenv from 'dotenv';
+import path from 'path';
 
-dotenv.config();
+dotenv.config({
+  path: path.join(__dirname, '../../.env'),
+});
 
-// environment
-export const NODE_ENV: string = process.env.NODE_ENV || 'development';
+const { NODE_ENV, MONGO_CONNECTION_STRING, JWT_SECRET_KEY, PORT, AUTH_MODE } = process.env;
 
-// application
-export const PORT: number = +(process.env.PORT || 4000);
+const config = {
+  NODE_ENV,
+  PORT: PORT ?? 4000,
+  MONGO_CONNECTION_STRING,
+  JWT_SECRET_KEY,
+  AUTH_MODE: AUTH_MODE === 'true',
+};
 
-// JWT
-export const JWT_SECRET_KEY: string = process.env.JWT_SECRET_KEY || 'secret-key';
-
-// database
-export const MONGO_CONNECTION_STRING: string =
-  process.env.MONGO_CONNECTION_STRING || 'your-mongo-db-connection-string';
+export default config;
