@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import { errorHttpLogger, errorLogger, notFound, successHttpLogger } from 'middlewares';
 import userRoute from './resources/user/user.route';
+import postRoute from './resources/post/post.router';
 
 const app: Express = express();
 
@@ -16,6 +17,7 @@ app.use('/', (req: Request, res: Response, next) => {
 app.use(successHttpLogger);
 app.use(errorHttpLogger);
 app.use('/user', userRoute);
+app.use('/post', postRoute);
 app.use(notFound);
 app.use(errorLogger);
 export default app;

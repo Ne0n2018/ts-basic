@@ -29,6 +29,7 @@ model Post {
   Id     String @id @default(uuid())
   Title  String
   UserId String @map("user_id")
+  Text   String
 
   User     User      @relation(fields: [UserId], references: [Id])
   Comments Comment[]
