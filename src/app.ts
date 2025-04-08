@@ -1,8 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import { errorHttpLogger, errorLogger, notFound, successHttpLogger } from 'middlewares';
-import userRouter from './resources/user/user.router';
-import postRouter from './resources/post/post.router';
-import commentRouter from './resources/comment/comment.router';
+import userRoute from './resources/user/user.route';
 
 const app: Express = express();
 
@@ -17,11 +15,7 @@ app.use('/', (req: Request, res: Response, next) => {
 });
 app.use(successHttpLogger);
 app.use(errorHttpLogger);
-
-app.use('/users', userRouter);
-app.use('/posts', postRouter);
-app.use('/comments', commentRouter);
-
+app.use('/user', userRoute);
 app.use(notFound);
 app.use(errorLogger);
 export default app;
