@@ -1,5 +1,3 @@
-// src/routes/comment.routes.ts
-
 import express, { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
 import { body, validationResult } from 'express-validator';
@@ -11,7 +9,90 @@ const router = express.Router();
 type CreateCommentInput = Omit<Comment, 'Id' | 'CreatedAt' | 'UpdatedAt'>;
 type UpdateCommentInput = Partial<Omit<Comment, 'Id' | 'CreatedAt' | 'UpdatedAt'>>;
 
-// Получение всех комментариев
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Comment:
+ *       type: object
+ *       properties:
+ *         Id:
+ *           type: string
+ *           description: The auto-generated ID of the comment
+ *         Text:
+ *           type: string
+ *           description: The text of the comment
+ *         PostId:
+ *           type: string
+ *           description: The ID of the post the comment belongs to
+ *         UserId:
+ *           type: string
+ *           description: The ID of the user who created the comment
+ *         Post:
+ *           $ref: '#/components/schemas/Post'
+ *         User:
+ *           $ref: '#/components/schemas/User'
+ *         CreatedAt:
+ *           type: string
+ *           format: date-time
+ *           description: The date the comment was created
+ *         UpdatedAt:
+ *           type: string
+ *           format: date-time
+ *           description: The date the comment was last updated
+ *       required:
+ *         - Id
+ *         - Text
+ *         - PostId
+ *         - UserId
+ *         - CreatedAt
+ *         - UpdatedAt
+ *     CreateCommentInput:
+ *       type: object
+ *       properties:
+ *         Text:
+ *           type: string
+ *           description: The text of the comment
+ *         PostId:
+ *           type: string
+ *           description: The ID of the post the comment belongs to
+ *         UserId:
+ *           type: string
+ *           description: The ID of the user who created the comment
+ *       required:
+ *         - Text
+ *         - PostId
+ *         - UserId
+ *     UpdateCommentInput:
+ *       type: object
+ *       properties:
+ *         Text:
+ *           type: string
+ *           description: The text of the comment
+ *         PostId:
+ *           type: string
+ *           description: The ID of the post the comment belongs to
+ *         UserId:
+ *           type: string
+ *           description: The ID of the user who created the comment
+ */
+
+/**
+ * @swagger
+ * /comments:
+ *   get:
+ *     summary: Get all comments
+ *     tags: [Comments]
+ *     responses:
+ *       200:
+ *         description: List of all comments
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Comment'
+ */
 router.get(
   '/',
   asyncHandler(async (_req: Request, res: Response) => {
@@ -20,7 +101,31 @@ router.get(
   })
 );
 
-// Получение комментария по ID
+/**
+ * @swagger
+ * /comments/{id}:
+ *   get:
+ *     summary: Get a comment by ID
+ *     tags: [Comments]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The comment ID
+ *     responses:
+ *       200:
+ *         description: The comment details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Comment'
+ *       400:
+ *         description: Comment ID is required
+ *       404:
+ *         description: Comment not found
+ */
 router.get(
   '/:id',
   asyncHandler(async (req: Request, res: Response) => {
@@ -34,7 +139,33 @@ router.get(
   })
 );
 
-// Получение всех комментариев по ID поста
+/**
+ * @swagger
+ * /comments/post/{postId}:
+ *   get:
+ *     summary: Get all comments by post ID
+ *     tags: [Comments]
+ *     parameters:
+ *       - in: path
+ *         name: postId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The post ID
+ *     responses:
+ *       200:
+ *         description: List of comments for the post
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Comment'
+ *       400:
+ *         description: Post ID is required
+ *       404:
+ *         description: Post not found
+ */
 router.get(
   '/post/:postId',
   asyncHandler(async (req: Request, res: Response) => {
@@ -48,7 +179,33 @@ router.get(
   })
 );
 
-// Получение всех комментариев по ID пользователя
+/**
+ * @swagger
+ * /comments/user/{userId}:
+ *   get:
+ *     summary: Get all comments by user ID
+ *     tags: [Comments]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The user ID
+ *     responses:
+ *       200:
+ *         description: List of comments by the user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Comment'
+ *       400:
+ *         description: User ID is required
+ *       404:
+ *         description: User not found
+ */
 router.get(
   '/user/:userId',
   asyncHandler(async (req: Request, res: Response) => {
@@ -62,7 +219,30 @@ router.get(
   })
 );
 
-// Создание комментария
+/**
+ * @swagger
+ * /comments:
+ *   post:
+ *     summary: Create a new comment
+ *     tags: [Comments]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreateCommentInput'
+ *     responses:
+ *       201:
+ *         description: The created comment
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Comment'
+ *       400:
+ *         description: Validation error
+ *       404:
+ *         description: Post or user not found
+ */
 router.post(
   '/',
   [
@@ -83,7 +263,37 @@ router.post(
   })
 );
 
-// Обновление комментария
+/**
+ * @swagger
+ * /comments/{id}:
+ *   put:
+ *     summary: Update a comment by ID
+ *     tags: [Comments]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The comment ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UpdateCommentInput'
+ *     responses:
+ *       200:
+ *         description: The updated comment
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Comment'
+ *       400:
+ *         description: Validation error or comment ID is required
+ *       404:
+ *         description: Comment not found
+ */
 router.put(
   '/:id',
   [
@@ -125,7 +335,36 @@ router.put(
   })
 );
 
-// Удаление комментария
+/**
+ * @swagger
+ * /comments/{id}:
+ *   delete:
+ *     summary: Delete a comment by ID
+ *     tags: [Comments]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The comment ID
+ *     responses:
+ *       200:
+ *         description: Comment deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 id:
+ *                   type: string
+ *       400:
+ *         description: Comment ID is required
+ *       404:
+ *         description: Comment not found
+ */
 router.delete(
   '/:id',
   asyncHandler(async (req: Request, res: Response) => {

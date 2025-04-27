@@ -1,11 +1,16 @@
-FROM node:20-alpine
+# Dockerfile
+
+FROM node:20.19.0
 
 WORKDIR /home/node/app
-COPY ./package*.json ./
 
-RUN npm install
+RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
 
+COPY package*.json ./
+RUN npm ci --build-from-source
+
+# Копируем остальной код
 COPY . .
-
-EXPOSE ${PORT}
-CMD ["npm", "start"]
+RUN npx prisma generate
+# Указываем команду для запуска
+CMD ["npm", "run", "start"]

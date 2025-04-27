@@ -50,3 +50,20 @@ model Comment {
   CreatedAt DateTime @default(now())
   UpdatedAt DateTime @updatedAt
 }
+
+model Admin {
+  Id        String   @id @default(uuid())
+  Name      String
+  Password  String
+  CreatedAt DateTime @default(now())
+  UpdatedAt DateTime @updatedAt
+  Token     Token[]
+}
+
+model Token {
+  Id        String   @id @default(uuid())
+  Token     String   @unique
+  AdminId   String
+  Admin     Admin    @relation(fields: [AdminId], references: [Id], onDelete: Cascade)
+  CreatedAt DateTime @default(now())
+}

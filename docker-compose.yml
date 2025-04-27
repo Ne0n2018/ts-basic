@@ -12,6 +12,8 @@ services:
       - postgres
     environment:
       - PORT=${PORT}
+      - JWT_SECRET=${JWT_SECRET}
+      - DATA_BASE="postgresql://postgres:123456@host.docker.internal:5433/trello?schema=public&log=query"
     restart: on-failure # OR on-failure
     networks:
       - app-bridge
